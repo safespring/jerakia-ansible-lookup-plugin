@@ -8,9 +8,12 @@ from jerakia import Jerakia,JerakiaError
 from ansible.errors import AnsibleError, AnsibleParserError
 from ansible.plugins.lookup import LookupBase
 
+# Class that implements Ansible lookup mechanism
 class JerakiaAnsible(Jerakia):
+
     def __init__(self,configfile):
         Jerakia.__init__(self,configfile)
+
     def dot_to_dictval(self, dic, key):
         key_arr = key.split('.')
         this_key = key_arr.pop(0)
@@ -19,7 +22,6 @@ class JerakiaAnsible(Jerakia):
         if len(key_arr) == 0:
             return dic[this_key]
         return self.dot_to_dictval(dic[this_key], '.'.join(key_arr))
-
 
     def scope(self, variables):
         scope_data = {}
